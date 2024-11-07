@@ -1,0 +1,31 @@
+name: Update and Alert
+
+on:
+  schedule:
+    - cron: '15 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Build the Docker image
+      uses: actions/checkout@v4
+    -
+      name: Build host info
+      run: |
+        uname -a
+        cat /etc/os-release
+    -
+      name: Run
+      env:
+        GOOGLE_CHAT_TOKEN: ${{ secrets.GOOGLE_CHAT_TOKEN }}
+        GOOGLE_CHAT_KEY: ${{ secrets.GOOGLE_CHAT_KEY }}
+      run: |
+        git checkout -b gh-pages \
+          && make build && make run
+    -
+      name: Git Push if changes
+      run: |
+        git checkout -b gh-pages \
+          && git diff --exit-code || git commit -am "docs: update" && git push origin gh-pages
