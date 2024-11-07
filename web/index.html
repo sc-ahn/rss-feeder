@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RSS Feed</title>
+  </head>
+  <body>
+    <div id="feed" style="padding: 1vh 10% 1vh 10%"></div>
+    <script>
+      window.onload = async () => {
+        const feed = document.getElementById('feed');
+        const response = await fetch('feed.json');
+        const data = await response.json();
+        for (const [url, item] of Object.entries(data)) {
+          const div = document.createElement('div');
+          const title = document.createElement('h2');
+          const description = document.createElement('p');
+          const date = document.createElement('p');
+          const category = document.createElement('p');
+          const link = document.createElement('a');
+
+          title.textContent = item.title;
+          description.textContent = item.description;
+          date.textContent = item.date;
+          category.textContent = item.category;
+          link.href = url;
+          link.textContent = 'Read more';
+
+          div.appendChild(title);
+          div.appendChild(description);
+          div.appendChild(date);
+          div.appendChild(category);
+          div.appendChild(link);
+          feed.appendChild(div);
+        }
+      }
+    </script>
+  </body>
+</html>
