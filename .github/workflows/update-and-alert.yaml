@@ -22,10 +22,12 @@ jobs:
         GOOGLE_CHAT_TOKEN: ${{ secrets.GOOGLE_CHAT_TOKEN }}
         GOOGLE_CHAT_KEY: ${{ secrets.GOOGLE_CHAT_KEY }}
       run: |
-        git checkout -b gh-pages \
-          && make build && make run
+        git checkout gh-pages \
+          && make build \
+          && make run
     -
       name: Git Push if changes
       run: |
-        git checkout -b gh-pages \
-          && git diff --exit-code || git commit -am "docs: update" && git push origin gh-pages
+        git checkout gh-pages \
+          && git diff --exit-code || git commit -am "docs: update" \
+          && git push origin gh-pages
