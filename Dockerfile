@@ -13,7 +13,6 @@ FROM python:3.11.10-alpine
 WORKDIR /rss-follow-up
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY --from=0 /rss-follow-up/requirements.txt ./
-COPY web web
 COPY scripts scripts
 COPY Makefile Makefile
 COPY main.py main.py

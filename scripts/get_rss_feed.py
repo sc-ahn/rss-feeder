@@ -6,9 +6,11 @@ from typing import Annotated
 
 import feedparser
 
-from scripts.common import aio_wrpper
+from scripts.common import aio_wrpper, ensure_path
 
-DATA_PATH = "web/feed.json"
+DATA_DIR = "web"
+FILE_NAME = "feed.json"
+DATA_PATH = f"{DATA_DIR}/{FILE_NAME}"
 TARGET_URL = "https://health.chosun.com/site/data/rss/rss.xml"
 
 logging.basicConfig(
@@ -35,8 +37,11 @@ async def get_feed(session):
 
 
 def load_feed(path: str) -> dict:
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
 
 
 def save_feed(path: str, data: dict):
@@ -50,6 +55,7 @@ def check_diff(previous: dict, current: dict) -> list[str]:
 
 
 async def run() -> tuple[bool, list[str]]:
+    ensure_path(DATA_DIR)
     raw_feed_txt = await get_feed()
     feed = feedparser.parse(raw_feed_txt)
     previous_response_map = load_feed(DATA_PATH)
