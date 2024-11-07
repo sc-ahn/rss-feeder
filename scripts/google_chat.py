@@ -13,7 +13,8 @@ logging.basicConfig(
 # get environment variables from os
 KEY = os.getenv("GOOGLE_CHAT_KEY")
 TOKEN = os.getenv("GOOGLE_CHAT_TOKEN")
-TARGET_ENDPOINT = "https://chat.googleapis.com/v1/spaces/AAAAmNcfEb8/messages"
+SPACE = os.getenv("GOOGLE_CHAT_SPACE")
+TARGET_ENDPOINT = f"https://chat.googleapis.com/v1/spaces/{SPACE}/messages"
 
 
 @aio_wrpper

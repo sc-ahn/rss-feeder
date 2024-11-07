@@ -23,6 +23,7 @@ jobs:
       env:
         GOOGLE_CHAT_TOKEN: ${{ secrets.GOOGLE_CHAT_TOKEN }}
         GOOGLE_CHAT_KEY: ${{ secrets.GOOGLE_CHAT_KEY }}
+        GOOGLE_CHAT_SPACE: ${{ secrets.GOOGLE_CHAT_SPACE }}
       run: |
         make build && make run
     -
