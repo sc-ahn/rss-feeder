@@ -31,6 +31,7 @@ run: ## 도커 컨테이너 실행, 매번 다른 이름으로 실행, 볼륨 �
 	docker run \
 		-e GOOGLE_CHAT_KEY=${GOOGLE_CHAT_KEY} \
 		-e GOOGLE_CHAT_TOKEN=${GOOGLE_CHAT_TOKEN} \
+		-e GOOGLE_CHAT_SPACE=${GOOGLE_CHAT_SPACE} \
 		--rm \
 		-v `pwd`/web:/rss-follow-up/web \
 		rss-feed \
